@@ -145,10 +145,10 @@ const ChatBotUI: React.FC = () => {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.5, y: 50 }}
             transition={{ type: "spring", damping: 20, stiffness: 300 }}
-            className="absolute sm:bottom-[-1.9rem] sm:right-[-1.89rem] sm:w-[29rem] sm:h-[535px] bg-white sm:rounded-xl shadow-2xl overflow-hidden flex flex-col border border-gray-100 [@media(max-width:640px)]:fixed [@media(max-width:640px)]:mx-auto [@media(max-width:640px)]:my-auto [@media(max-width:640px)]:max-w-full [@media(max-width:640px)]:h-screen [@media(max-width:640px)]:overflow-hidden [@media(max-width:640px)]:inset-0"
+            className="absolute sm:bottom-[-1.9rem] sm:right-[-1.89rem] sm:w-[29rem] sm:h-[535px] bg-white sm:rounded-xl shadow-2xl overflow-hidden flex flex-col border border-gray-100 [@media(max-width:640px)]:fixed [@media(max-width:640px)]:mx-auto [@media(max-width:640px)]:my-auto [@media(max-width:640px)]:max-w-full [@media(max-width:640px)]:h-screen [@media(max-width:640px)]:overflow-hidden [@media(max-width:640px)]:inset-0 "
           >
             {/* Chat header */}
-            <div className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white p-4 flex justify-between items-center">
+            <div className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white p-4 flex justify-between items-center [@media(max-width:640px)]:pt-10">
               <div className="flex items-center space-x-3">
                 <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center cursor-pointer">
                   <svg
@@ -192,7 +192,7 @@ const ChatBotUI: React.FC = () => {
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="h-5 w-5"
+                    className="sm:h-5 sm:w-5 h-7 w-7"
                     viewBox="0 0 20 20"
                     fill="currentColor"
                   >
