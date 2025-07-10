@@ -1,7 +1,7 @@
 // #--------------------------------------------add to card product manage-------------------------------------------------------------
 
-// #-------------------# is main add to card waly product add hoye ga --------------------------------------------
-
+// #----------------------# is main add to card waly product add hoye ga --------------------------------------------
+// is ko meny order page or Navbar component main dia hai
 export async function ReadData(email: string) {
   const base = process.env.NEXT_PUBLIC_ADDTOCARDAPI;
   if (base) {
@@ -21,6 +21,7 @@ export async function ReadData(email: string) {
 }
 
 // #----------------is main add to card waly product read hoye gy --------------------------
+// is ko meny danamic productDetailPage page main or ProductCard component main dia hai
 
 export interface ProductDataSchema {
   email?: string;
@@ -55,7 +56,8 @@ export async function PustData(data: ProductDataSchema) {
   }
 }
 
-//-------------is main add to card waly product delect hoye gy-------------------------
+//-------------is main add to card wala main sy ek product delete hoye gy-------------------------
+// is ko meny order waly page main dia hai
 
 export interface ProductDeleetSchema {
   email: string;
@@ -82,7 +84,8 @@ export async function DeleteData(data: ProductDeleetSchema) {
   }
 }
 
-// -------------------------------------jab user form fill kardy ga to sara add to card data order waly main save ho jaye ga or add to card waly main sy delete ho jaye ga----
+// -------------------------------------jab user form fill kardy ga to sara add to card data order waly main save ho jaye ga or add to card waly main sy sary product delete ho jaye ga----
+// is ko emny OrderForm waly component main dia hai
 
 export async function DeleteAddToCard(email: string) {
   const base = process.env.NEXT_PUBLIC_ADDTOCARDAPI;
@@ -104,10 +107,10 @@ export async function DeleteAddToCard(email: string) {
   }
 }
 
-// #---------------------------------------------is main order manage kar raha ho-------------------------------------------------------------------
-
+// #---------------------------------------------is main order backend main database main save ho raha hai-------------------------------------------------------------------
 // #-----------------is main order add ho rahy hai---------------------
 
+// is ko meny OrderFfrom waly component main dia hai
 export interface OrderDataStructure {
   orderId: string;
   loginEmail: string;
@@ -143,17 +146,16 @@ export async function PustOrderData(data: OrderDataStructure) {
       return convert;
     } catch (error) {
       console.log(error);
-      return {message: `${error}`, success: false};
+      return { message: `${error}`, success: false };
     }
   } else {
-    return {message: "Your api key is none", success: false,};
+    return { message: "Your api key is none", success: false };
   }
 }
 
+// ---------------------------------------ia main ai ka response araha hai backend main sy------------------------------------------------------------
 
-
-// ---------------------------------------ai assistant------------------------------------------------------------
-
+// is ko meny ChatBot component main dia  hai
 type Role = "user" | "assistant";
 
 interface Message {
@@ -161,9 +163,12 @@ interface Message {
   content: string;
 }
 
-export async function AiAssistant(prompt: Message[], user_email: string): Promise<string> {
+export async function AiAssistant(
+  prompt: Message[],
+  user_email: string
+): Promise<string> {
   // is main latset maly object ky andar user ki email add kar raha ho
-   const updatedPrompt: Message[] = prompt.map((msg, idx) => {
+  const updatedPrompt: Message[] = prompt.map((msg, idx) => {
     if (idx === prompt.length - 1) {
       return {
         ...msg,
@@ -191,6 +196,38 @@ export async function AiAssistant(prompt: Message[], user_email: string): Promis
       return `${error}`;
     }
   } else {
-    return "Our chat service is currently unavailable. Please try again later."
+    return "Our chat service is currently unavailable. Please try again later.";
+  }
+}
+
+// -----------------------------------------is main user ki Complaint jarahe hai--------------------------------------------------------
+
+// is ko meny contact waly page main dia hai
+export interface UserComplaintSchema {
+  name: string;
+  email: string;
+  phone_number: string;
+  message: string;
+}
+
+export async function UserComplaint(data: UserComplaintSchema) {
+  const base = process.env.NEXT_PUBLIC_ADDTOCARDAPI;
+  if (base) {
+    try {
+      const reponse = await fetch(`${base}/content_information`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      const convert: ApiResponse = await reponse.json();
+      return convert;
+    } catch (error) {
+      console.log(error);
+      return { message: `${error}`, success: false };
+    }
+  } else {
+    return { message: "Your api key is none", success: false };
   }
 }
