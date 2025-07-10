@@ -214,7 +214,7 @@ export async function UserComplaint(data: UserComplaintSchema) {
   const base = process.env.NEXT_PUBLIC_ADDTOCARDAPI;
   if (base) {
     try {
-      const reponse = await fetch(`${base}/content_information`, {
+      const reponse = await fetch(`${base}/user_complaint`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
