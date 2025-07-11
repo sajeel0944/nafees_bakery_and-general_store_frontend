@@ -7,10 +7,10 @@ import {
 } from "@clerk/nextjs";
 
 export const metadata: Metadata = {
-  title: "Sir Zain",
+  title: "Nafees Bakery",
   description: "",
   icons: {
-    icon: "/picture/bakary.png", // single string, no array
+    icon: "/picture/logo.png", // single string, no array
   },
 };
 const inter = Inter({ subsets: ["latin"] });
