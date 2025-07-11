@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   title: "Nafees Bakery",
   description: "",
   icons: {
-    icon: "/picture/logo.png", // single string, no array
+    icon: "/logo.png", // single string, no array
   },
 };
 const inter = Inter({ subsets: ["latin"] });
