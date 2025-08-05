@@ -8,8 +8,22 @@ import Newsletter from "@/components/Newsletter";
 import Navbar from "@/components/Navbar";
 import CategoryGrid from "@/components/CategoryGrid";
 import ChatBotUI from "@/components/ChatBot";
+import VoiceAgent from "@/components/VoiceAgent";
+import { useState } from "react";
 
 export default function Home() {
+  const [isOpen, setIsOpen] = useState(false); // jab is ki value true hoye gi to chatbot open hoye ga or is ki value chaneg voice agent ky andar ho rahe hai
+  
+  // ye function voice agent ky andar chaly ga
+  const VoiceAgentOpenChatBot = () => {
+    setIsOpen(true)
+  }
+
+  // ye function chatbot ky andar jaraha hai waha sy isOpen ki value reset kar raha ho
+  const RestartIsOpen = () => {
+    setIsOpen(false)
+  }
+  
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Navbar placed here */}
@@ -58,8 +72,12 @@ export default function Home() {
 
         {/* Newsletter */}
         <Newsletter />
-        {/* ye ia chatbot hai */}
-        <ChatBotUI />
+
+        {/* is main voice ai agent aye ga or is ky andar VoiceAgentOpenChatBot function ga raha hai*/}
+        <VoiceAgent onOpenChatBot={VoiceAgentOpenChatBot}/>
+
+        {/* ye ai chatbot hai or is ky andar isOpen ki value jarahe hai or is ky andar RestartIsOpen function jaraha hai*/}
+        <ChatBotUI OpenChatBot={isOpen} RestartIsOpen={RestartIsOpen}/>
       </main>
     </div>
   );

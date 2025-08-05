@@ -16,13 +16,25 @@ interface Message {
   content: string;
 }
 
-const ChatBotUI: React.FC = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState<Message[]>([]); // is main sary message aye gy 
-  const [inputValue, setInputValue] = useState(""); // 
+interface VoiceAgentOpen {
+  OpenChatBot: boolean;
+  RestartIsOpen: () => void;
+}
+
+const ChatBotUI = (props: VoiceAgentOpen) => {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [messages, setMessages] = useState<Message[]>([]); // is main sary message aye gy
+  const [inputValue, setInputValue] = useState(""); //
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const { isLoaded, isSignedIn, user } = useUser();
   const [waitMessage, setWaitMessage] = useState<boolean>(false);
+
+  // ye jab cahly ga jab voice agent is ko open karny ka boly ga
+  useEffect(() => {
+    if (props.OpenChatBot) {
+      setIsOpen(true);
+    }
+  }, [props.OpenChatBot]);
 
   const toggleChat = () => {
     setIsOpen(!isOpen);
@@ -33,7 +45,7 @@ const ChatBotUI: React.FC = () => {
     e.preventDefault();
     //  spinner ON
     setWaitMessage(true);
-    // jab tak clerk sy email nhi aye gi us time tak ye nhi chaly ga 
+    // jab tak clerk sy email nhi aye gi us time tak ye nhi chaly ga
     if (!isLoaded || !isSignedIn || !user) {
       // Handle case when user is not signed in
       alert("Please sign in to add items to cart");
@@ -48,7 +60,7 @@ const ChatBotUI: React.FC = () => {
       role: "user",
       content: inputValue,
     };
-    const updatedMessages = [...messages, newMessage]; 
+    const updatedMessages = [...messages, newMessage];
     setMessages(updatedMessages); // user ka message setMessages ky andar ja raha hai
     setInputValue(""); // is main input field MT ho raha hai
     // console.log(messages);
@@ -68,7 +80,7 @@ const ChatBotUI: React.FC = () => {
       };
       setMessages((prev) => [...prev, aiMessage]); // ai ka response ko format kai hai wo is main araha hai setMessages
     } catch (error) {
-      console.log(error)
+      console.log(error);
       const errorMessage: Message = {
         role: "assistant",
         content: "Sorry, I couldn't process your request. Please try again.",
@@ -187,7 +199,7 @@ const ChatBotUI: React.FC = () => {
                   </svg>
                 </button>
                 <button
-                  onClick={toggleChat}
+                  onClick={()=>{toggleChat();props.RestartIsOpen();}}
                   className="text-white hover:text-gray-200 focus:outline-none cursor-pointer"
                 >
                   <svg

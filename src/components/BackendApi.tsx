@@ -231,3 +231,35 @@ export async function UserComplaint(data: UserComplaintSchema) {
     return { message: "Your api key is none", success: false };
   }
 }
+
+
+
+
+// ---------------------------------------is main VoiceAi ka response araha hai backend main sy------------------------------------------------------------
+
+
+export async function VoiceAiAssistant(
+  prompt: Message[],
+): Promise<string> {
+ 
+  const base = process.env.NEXT_PUBLIC_ADDTOCARDAPI;
+  if (base) {
+    try {
+      const reponse = await fetch(`${base}/Voice_assistant`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(prompt),
+      });
+      const convert = await reponse.json();
+
+      return convert;
+    } catch (error) {
+      console.log(error);
+      return `${error}`;
+    }
+  } else {
+    return "Our Agent service is currently unavailable. Please try again later.";
+  }
+}

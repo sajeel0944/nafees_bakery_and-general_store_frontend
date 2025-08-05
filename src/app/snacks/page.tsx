@@ -8,8 +8,21 @@ import Image from "next/image";
 import FetchSanityData, { Product } from "@/components/FetchSanityData";
 import { useEffect, useState } from "react";
 import ChatBotUI from "@/components/ChatBot";
+import VoiceAgent from "@/components/VoiceAgent";
 
 export default function GroceriesPage() {
+  const [isOpen, setIsOpen] = useState(false); // jab is ki value true hoye gi to chatbot open hoye ga or is ki value chaneg voice agent ky andar ho rahe hai
+
+  // ye function voice agent ky andar chaly ga
+  const VoiceAgentOpenChatBot = () => {
+    setIsOpen(true)
+  }
+
+  // ye function chatbot ky andar jaraha hai waha sy isOpen ki value reset kar raha ho
+  const RestartIsOpen = () => {
+    setIsOpen(false)
+  }
+  
   const [sanity_snack_data, set_sanity_snack_data] = useState<Product[]>([]); // is ky andar sanity sy snacks product is main aye gy  
 
   useEffect(() => {
@@ -125,7 +138,12 @@ export default function GroceriesPage() {
             </motion.button>
           </div>
         </motion.section>
-        <ChatBotUI /> {/* ye ai chatbot hai */}
+
+         <VoiceAgent onOpenChatBot={VoiceAgentOpenChatBot}/>
+
+        {/* ye ai chatbot hai or is ky andar isOpen ki value jarahe hai or is ky andar RestartIsOpen function jaraha hai*/}
+        <ChatBotUI OpenChatBot={isOpen} RestartIsOpen={RestartIsOpen}/>
+
       </main>
     </div>
   );

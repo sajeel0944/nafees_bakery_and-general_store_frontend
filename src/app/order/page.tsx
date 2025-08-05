@@ -19,6 +19,7 @@ import { urlFor } from "@/sanity/lib/image";
 import { useUser } from "@clerk/nextjs";
 import OrderForm from "@/components/OrderForm";
 import ChatBotUI from "@/components/ChatBot";
+import VoiceAgent from "@/components/VoiceAgent";
 
 type Product = {
   productId: string;
@@ -32,6 +33,18 @@ type Product = {
 };
 
 export default function OnlineOrdersPage() {
+  const [isOpen, setIsOpen] = useState(false); // jab is ki value true hoye gi to chatbot open hoye ga or is ki value chaneg voice agent ky andar ho rahe hai
+
+  // ye function voice agent ky andar chaly ga
+  const VoiceAgentOpenChatBot = () => {
+    setIsOpen(true)
+  }
+  
+  // ye function chatbot ky andar jaraha hai waha sy isOpen ki value reset kar raha ho
+  const RestartIsOpen = () => {
+    setIsOpen(false)
+  }
+  
   const [products, setProducts] = useState<Product[]>(); // jo user ny add to card ki a hai wo product is  main aye gy 
   const { isLoaded, isSignedIn, user } = useUser(); // ye clerk sy araha hai
 
@@ -242,7 +255,11 @@ export default function OnlineOrdersPage() {
           </div>
         </section>
 
-        <ChatBotUI /> {/* ye ai chat bot hai */}
+         <VoiceAgent onOpenChatBot={VoiceAgentOpenChatBot}/>
+
+        {/* ye ai chatbot hai or is ky andar isOpen ki value jarahe hai or is ky andar RestartIsOpen function jaraha hai*/}
+        <ChatBotUI OpenChatBot={isOpen} RestartIsOpen={RestartIsOpen}/>
+
       </main>
     </div>
   );

@@ -9,7 +9,6 @@ import { urlFor } from "@/sanity/lib/image";
 import AddToCardNotification from "@/components/AddToCardNotification";
 import { ProductDataSchema, PustData } from "@/components/BackendApi";
 import { useUser } from "@clerk/nextjs";
-import ChatBotUI from "@/components/ChatBot";
 
 const ProductDetailPage = ({ params }: any) => {
   const get_id = params.ProductDetailPage; // is main product ki id arahe hai params ki madad sy
@@ -165,7 +164,6 @@ const ProductDetailPage = ({ params }: any) => {
             </div>
           </div>
         </div>
-        <ChatBotUI/> {/* ye ai chat bot hai*/ }
       </main>
       {/* jab user add to card par click karry ga to ye show hoye ga or is main name, price, wuality or image ja rahy hai */}
       {showAddToCart ? (

@@ -10,6 +10,7 @@ import Image from "next/image";
 import ChatBotUI from "@/components/ChatBot";
 import { UserComplaint, UserComplaintSchema } from "@/components/BackendApi";
 import { useState } from "react";
+import VoiceAgent from "@/components/VoiceAgent";
 
 // Form validation schema
 const contactSchema = z.object({
@@ -20,7 +21,19 @@ const contactSchema = z.object({
 });
 
 export default function ContactPage() {
-  const [processing, setProcessing] = useState<boolean>(false); 
+  const [isOpen, setIsOpen] = useState(false); // jab is ki value true hoye gi to chatbot open hoye ga or is ki value chaneg voice agent ky andar ho rahe hai
+
+  // ye function voice agent ky andar chaly ga
+  const VoiceAgentOpenChatBot = () => {
+    setIsOpen(true);
+  };
+  
+  // ye function chatbot ky andar jaraha hai waha sy isOpen ki value reset kar raha ho
+  const RestartIsOpen = () => {
+    setIsOpen(false)
+  }
+
+  const [processing, setProcessing] = useState<boolean>(false);
   const [successMessage, setSuccessMessage] = useState({ type: "", text: "" }); // is ky zayeey user ko message show kar waraha ho
 
   // is main from ka data aye ga
@@ -28,12 +41,12 @@ export default function ContactPage() {
     register,
     handleSubmit,
     formState: { errors },
-    reset
+    reset,
   } = useForm<UserComplaintSchema>({
     resolver: zodResolver(contactSchema),
   });
 
-// from_data ky andar from ka data aye ga
+  // from_data ky andar from ka data aye ga
   const onSubmit = async (from_data: UserComplaintSchema) => {
     try {
       setProcessing(true);
@@ -334,8 +347,12 @@ export default function ContactPage() {
             </motion.div>
           </div>
         </section>
-        {/* ye ai chatbot hai */}
-        <ChatBotUI />
+
+        {/* is main voice ai agent aye ga or is ky andar VoiceAgentOpenChatBot function ga raha hai*/}
+        <VoiceAgent onOpenChatBot={VoiceAgentOpenChatBot} />
+
+        {/* ye ai chatbot hai or is ky andar isOpen ki value jarahe hai or is ky andar RestartIsOpen function jaraha hai*/}
+        <ChatBotUI OpenChatBot={isOpen} RestartIsOpen={RestartIsOpen}/>
       </main>
     </div>
   );
